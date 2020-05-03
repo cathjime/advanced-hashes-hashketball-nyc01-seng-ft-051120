@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require "pry"
+
 def game_hash
   {
     home: {
@@ -124,6 +126,70 @@ def game_hash
       ]
     }
   }
+  
 end
 
-# Write code here
+
+def num_points_scored(player_name)
+  game_hash.each do |team_key, team_value_hash|
+    players_array = team_value_hash[:players]
+    players_array.each do |player_stats_ele|
+      if player_stats_ele[:player_name] == player_name
+        return player_stats_ele[:points]
+      end
+    end 
+  end 
+end
+
+def shoe_size(player_name)
+   game_hash.each do |team_key, team_value_hash|
+    players_array = team_value_hash[:players]
+    players_array.each do |player_stats_ele|
+      if player_stats_ele[:player_name] == player_name
+        return player_stats_ele[:shoe]
+      end
+    end 
+  end 
+end 
+
+def team_colors(team_name)
+    game_hash.each do |team_key, team_value_hash|
+      if team_value_hash[:team_name] == team_name
+        return team_value_hash[:colors]
+      end 
+    end 
+end 
+
+def team_names 
+  game_hash.collect do |team_key, team_value_hash|
+    team_value_hash[:team_name]
+  end
+end
+ 
+def player_numbers(team_name)   #returns an Array of the jersey numbers for that team.
+  
+  game_hash.each do |team_key, team_value_hash|
+    if team_value_hash[:team_name] == team_name
+      player_array = team_value_hash[:players] 
+      player_array.collect do |stats_hash|
+        binding.pry
+      end
+    end 
+       
+  end 
+    
+    
+    
+  #    |player_stats_ele|
+  #     if player_stats_ele[:player_name] == player_name
+  #       return player_stats_ele[:points]
+  #     end
+  #   end 
+  # end 
+  
+end
+  
+ # binding.pry
+
+
+
