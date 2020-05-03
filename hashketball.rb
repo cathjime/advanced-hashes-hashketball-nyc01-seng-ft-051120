@@ -165,29 +165,58 @@ def team_names
     team_value_hash[:team_name]
   end
 end
- 
+
 def player_numbers(team_name)   #returns an Array of the jersey numbers for that team.
-  
+ jersey_nums = []
   game_hash.each do |team_key, team_value_hash|
     if team_value_hash[:team_name] == team_name
       player_array = team_value_hash[:players] 
-      player_array.collect do |stats_hash|
-        binding.pry
+      jersey_nums = player_array.collect do |stats_hash|
+        # binding.pry
+        stats_hash[:number]
       end
     end 
-       
   end 
-    
-    
-    
-  #    |player_stats_ele|
-  #     if player_stats_ele[:player_name] == player_name
-  #       return player_stats_ele[:points]
-  #     end
-  #   end 
-  # end 
-  
+  jersey_nums
 end
+  
+def player_stats(player_name)   #returns all stats for a given player
+player_stats_hash = {}
+  game_hash.each do |team_key, team_value_hash|
+    players_array = team_value_hash[:players] 
+    players_array.each do |stats_hash|
+      if stats_hash[:player_name] == player_name
+        stats_hash.each do |stats_key, stats_value|
+        player_stats_hash[stats_key] = stats_value
+        end 
+      end 
+    end 
+  end 
+  player_stats_hash
+end 
+
+#return the number of rebounds associated with the player that has the largest shoe size
+# find the player with the largest shoe size
+# return that player's number of rebounds
+
+def big_shoe_rebounds
+  no_of_rebounds = 0 
+  largest_shoesize = 0 
+  player_w_largest_shoe = "" 
+  
+  game_hash.each do |team_key, team_value_hash|
+    players_array = team_value_hash[:players] 
+    players_array.each do |stats_hash|
+      if stats_hash[:shoe] > largest_shoesize
+        largest_shoesize = stats_hash[:shoe]
+        player_w_largest_shoe = stats_hash[:player_name]
+        no_of_rebounds = stats_hash[:rebounds]
+        # binding.pry
+      end 
+    end 
+  end 
+  no_of_rebounds 
+end 
   
  # binding.pry
 
